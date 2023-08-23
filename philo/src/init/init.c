@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosoplhers.h                                    :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/22 23:30:35 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/23 10:09:53 by caalbert         ###   ########.fr       */
+/*   Created: 2023/08/23 10:49:47 by caalbert          #+#    #+#             */
+/*   Updated: 2023/08/23 12:29:45 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#include "inc/philosophers.h"
 
-# include <pthread.h>
-# include <stdio.h>
+void	*parse_args(int argc, char **argv)
+{
+	t_args	*args;
 
-int		ft_isdigit(int c);
-
-#endif
+	args = malloc(sizeof(t_args) * argc);
+	if (!args)
+	{
+		printf("Error: malloc\n");
+		exit(1);
+	}
+	args->num_philo = ft_atoi(argv[1]);
+	args->time_to_die = ft_atoi(argv[2]);
+	args->time_to_eat = ft_atoi(argv[3]);
+	args->time_to_sleep = ft_atoi(argv[4]);
+	// if (argc == 6)
+	// 	args->num_meals = ft_atoi(argv[5]);
+}
