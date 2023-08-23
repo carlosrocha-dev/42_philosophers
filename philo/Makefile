@@ -6,25 +6,29 @@
 #    By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/22 22:19:29 by caalbert          #+#    #+#              #
-#    Updated: 2023/08/22 23:26:58 by caalbert         ###   ########.fr        #
+#    Updated: 2023/08/23 10:17:38 by caalbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=    philosophers
-CC=      cc
-CFLAGS=  -Wall -Wextra -Werror -pthread -Iinc
-SRC_DIR= src
-OBJ_DIR= obj
-SRC=     main.c
-OBJS=    $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
+NAME= 		philosophers
+CC=			cc
+CFLAGS=		-Wall -Wextra -Werror -pthread -Iinc
+SRC_DIR= 	src
+OBJ_DIR= 	obj
 
-all:    $(NAME)
+SRC=	 	\
+		$(SRC_DIR)/main.c	\
+		$(SRC_DIR)/utils/utils.c
+
+OBJS=	 	$(patsubst $(SRC_DIR)/%, $(OBJ_DIR)/%, $(SRC:.c=.o))
+
+all:	 $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)
+	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
@@ -34,4 +38,3 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
