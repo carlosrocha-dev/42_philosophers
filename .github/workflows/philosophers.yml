@@ -1,0 +1,49 @@
+name: Philosophers CI/CD Workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  norminette:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run Norminette
+      run: |
+        docker pull alexandregv/norminette:latest
+        docker run -v $PWD/philo:/philo alexandregv/norminette:latest /philo/src/main.c /philo/inc/philosoplhers.h
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt-get install -y gcc libc6-dev
+
+    - name: Compile
+      run: |
+        cd philo
+        make
+
+  valgrind_test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt-get install -y valgrind
+
+    - name: Run Valgrind
+      run: |
+        cd philo
+        valgrind --error-exitcode=1 --leak-check=full ./philosophers 4 410 200 200
