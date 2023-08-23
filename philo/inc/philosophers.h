@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:30:35 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/23 12:23:30 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:02:55 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <pthread.h>
 # include <stdio.h>
+# include <stdlib.h>
 
 typedef struct s_args
 {
