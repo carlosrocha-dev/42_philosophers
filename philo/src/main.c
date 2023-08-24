@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:13:58 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/24 18:18:42 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/24 18:37:28 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	*single_philosopher_routine(void *void_philo)
 	args = philo->args;
 	pthread_mutex_lock(&(args->forks[philo->left_fork]));
 	print_philo(args, philo->id, "has taken a fork");
+	printf("Philosopher %d has taken a fork\n", philo->id);
 	usleep(args->time_to_die * 1000);
+	printf("Philosopher %d died\n", philo->id);
 	print_philo(args, philo->id, "died");
 	pthread_mutex_unlock(&(args->forks[philo->left_fork]));
 	return (NULL);
@@ -61,8 +63,13 @@ int	main(int ac, char **av)
 		return (1);
 	if (args->num_philo == 1)
 	{
+		printf("Starting single philosopher simulation...\n");
 		if (single_philosopher_simulation(args))
+		{
+			printf("Error: single philosopher simulation failed\n");
 			return (1);
+		}
+		printf("Single philosopher simulation completed\n");
 		return (0);
 	}
 	return (0);
