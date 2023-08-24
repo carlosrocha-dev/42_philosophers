@@ -6,12 +6,13 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 19:50:39 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/24 19:59:24 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/24 20:03:43 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/philosophers.h"
 
+//NOTE: sequência de ações realizadas por um filósofo durante a simulação
 void	philo_actions(void)
 {
 	printf("Philosopher is thinking\n");
@@ -36,6 +37,10 @@ void	*single_philosopher_routine(void *void_philo)
 	return (NULL);
 }
 
+/*
+NOTE: implementa a rotina de execução contínua de um filósofo
+durante a simulação
+*/
 void	*philo_routine(void)
 {
 	while (1)
