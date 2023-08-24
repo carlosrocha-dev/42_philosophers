@@ -4,6 +4,9 @@
 
 </div>
 
+
+![Build Status](https://github.com/carlosrocha-dev/42_philosophers/actions/workflows/philosophers/badge.svg)
+
 # 42_philosophers | 🍽️ 💭 💤
 In this project, you will learn the basics of threading a process. You will see how to create threads and you will discover mutexes.
 
