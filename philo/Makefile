@@ -6,11 +6,11 @@
 #    By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/22 22:19:29 by caalbert          #+#    #+#              #
-#    Updated: 2023/08/23 12:29:08 by caalbert         ###   ########.fr        #
+#    Updated: 2023/08/24 09:23:27 by caalbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME= 		philosophers
+NAME= 		philo
 CC=			cc
 CFLAGS=		-Wall -Wextra -Werror -pthread -Iinc
 SRC_DIR= 	src
