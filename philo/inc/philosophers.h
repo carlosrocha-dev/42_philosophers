@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:30:35 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/24 19:31:45 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/24 19:36:17 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include "structs.h"
 
 int			ft_isdigit(int c);
 void		*parse_args(int argc, char **argv);
