@@ -46,4 +46,4 @@ jobs:
     - name: Run Valgrind
       run: |
         cd philo
-        valgrind --error-exitcode=1 --leak-check=full ./philosophers 4 410 200 200
+        valgrind --error-exitcode=1 --leak-check=full ./philo 4 410 200 200
