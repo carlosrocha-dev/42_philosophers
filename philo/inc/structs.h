@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 19:30:21 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/24 19:32:18 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/24 19:34:48 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,5 @@ typedef struct s_args
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	*forks;
 }	t_args;
+
+#endif
