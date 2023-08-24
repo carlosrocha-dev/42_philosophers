@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:13:58 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/24 18:37:28 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/24 18:42:00 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,14 @@ int	main(int ac, char **av)
 	if (args->num_philo == 1)
 	{
 		printf("Starting single philosopher simulation...\n");
+		long long start_time = timestamp(0);
 		if (single_philosopher_simulation(args))
 		{
 			printf("Error: single philosopher simulation failed\n");
-			return (1);
+			return 1;
 		}
-		printf("Single philosopher simulation completed\n");
+		long long end_time = timestamp(start_time);
+		printf("Single philosopher simulation completed in %lld ms\n", end_time);
 		return (0);
 	}
 	return (0);
