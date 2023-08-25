@@ -5,7 +5,8 @@
 </div>
 
 
-[![Philosophers CI/CD Workflow](https://github.com/carlosrocha-dev/42_philosophers/actions/workflows/philosophers.yml/badge.svg)](https://github.com/carlosrocha-dev/42_philosophers/actions/workflows/philosophers.yml)
+[![Philosophers CI/CD Workflow](https://github.com/carlosrocha-dev/42_philosophers/actions/workflows/philosophers.yml/badge.svg)](https://github.com/carlosrocha-dev/42_philosophers/actions/workflows/philosophers.yml) ![Static Badge](https://img.shields.io/badge/Philosophers%20(42sp)-v%200.0.1-%20light%20green)
+
 
 # 42_philosophers | 🍽️ 💭 💤
 In this project, you will learn the basics of threading a process. You will see how to create threads and you will discover mutexes.
