@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 19:30:21 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/24 19:34:48 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/26 20:01:29 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_philo
 	int				right_fork;
 	long long		last_meal;
 	int				is_done;
-	int				time_to_ate;
+	int				times_ate;
 	t_args			*args;
 	pthread_t		thread;
 	pthread_mutex_t	is_done_mutex;

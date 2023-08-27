@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 10:49:47 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/24 18:26:33 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/26 20:39:47 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,33 @@ void	create_philosophers(t_args *args)
 		args->philo[i].left_fork = i;
 		args->philo[i].right_fork = (i + 1) % args->num_philo;
 		args->philo[i].last_meal = 0;
-		args->philo[i].time_to_ate = 0;
+		args->philo[i].times_ate = 0;
 		args->philo[i].is_done = 0;
 		args->philo[i].args = args;
 	}
+}
+
+int	init_mutex(t_args *args)
+{
+	int	i;
+
+	args->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* (args->num_philo));
+	if (!args->forks)
+		return (1);
+	i = -1;
+	while (++i < args->num_philo)
+	{
+		if (pthread_mutex_init(&(args->forks[i]), NULL))
+			return (1);
+		if (pthread_mutex_init(&(args->philo[i].is_done_mutex), NULL))
+			return (1);
+	}
+	if (pthread_mutex_init(&(args->write_mutex), NULL))
+		return (1);
+	if (pthread_mutex_init(&(args->last_meal_mutex), NULL))
+		return (1);
+	if (pthread_mutex_init(&(args->death_mutex), NULL))
+		return (1);
+	return (0);
 }

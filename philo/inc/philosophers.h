@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 23:30:35 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/24 20:30:11 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/26 19:54:51 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include "structs.h"
+
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define PURPLE "\033[0;35m"
+# define CYAN "\033[0;36m"
+# define RESET "\033[0m"
 
 int			ft_isdigit(int c);
 void		*parse_args(int argc, char **argv);
@@ -35,4 +43,8 @@ int			is_philo_dying(t_args *args, t_philo *philo);
 int			all_philos_done_eating(t_args *args);
 int			philo_finished_eating(t_philo *philo);
 void		observe_and_terminate(t_args *args);
+int			terminate(t_args *args);
+int			start_simulation(t_args *args);
+void		*philo_routine(void *void_philo);
+
 #endif
