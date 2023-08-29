@@ -5,46 +5,102 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/22 22:13:58 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/26 21:43:46 by caalbert         ###   ########.fr       */
+/*   Created: 2023/08/29 09:15:08 by caalbert          #+#    #+#             */
+/*   Updated: 2023/08/29 09:15:09 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/philosophers.h"
+#include "philosophers.h"
 
-int	args_analyser(int ac, char **av)
+/*
+Routine for each philosopher in the simulation. This function represents
+a philosopher's lifecycle, covering actions such as checking for death
+conditions, eating, and sleeping.
+*/
+void	*philosophers_routine(void *void_philo)
 {
-	int	i;
-	int	j;
+	t_philo	*philo;
+	t_args	*args;
 
-	i = 1;
-	j = 0;
-	while (i < ac)
+	philo = (t_philo *)void_philo;
+	args = philo->args;
+	while (1)
 	{
-		j = 0;
-		while (av[i][j])
+		if (anyone_dying_soon(args))
+			break ;
+		if (args->number_of_meals != -1
+			&& philo->times_ate >= args->number_of_meals)
 		{
-			if (av[i][j] < 48 || av[i][j] > 57)
-				return (0);
-			j++;
+			pthread_mutex_lock(&(philo->is_done_mutex));
+			philo->is_done = 1;
+			pthread_mutex_unlock(&(philo->is_done_mutex));
+			break ;
 		}
-		i++;
+		philosophers_actions(philo, args);
+		philo->times_ate += 1;
+		philo_sleep_and_think(args, philo);
 	}
-	return (1);
+	return (NULL);
 }
 
-int	main(int ac, char **av)
+/*
+Execute a philosopher's actions: taking forks and eating.
+*/
+void	philosophers_actions(t_philo *philo, t_args *args)
+{
+	if (philo->id % 2)
+	{
+		pthread_mutex_lock(&(args->forks[philo->left_fork]));
+		print_philo(args, philo->id, "has taken a fork");
+		pthread_mutex_lock(&(args->forks[philo->right_fork]));
+		print_philo(args, philo->id, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(&(args->forks[philo->right_fork]));
+		print_philo(args, philo->id, "has taken a fork");
+		pthread_mutex_lock(&(args->forks[philo->left_fork]));
+		print_philo(args, philo->id, "has taken a fork");
+	}
+	pthread_mutex_lock(&(args->last_meal_mutex));
+	philo->last_meal = timestamp(0);
+	pthread_mutex_unlock(&(args->last_meal_mutex));
+	print_philo(args, philo->id, "is eating");
+	usleep(args->time_to_eat * 1000);
+	pthread_mutex_unlock(&(args->forks[philo->left_fork]));
+	pthread_mutex_unlock(&(args->forks[philo->right_fork]));
+}
+
+/*
+Routine for a lone philosopher: takes a fork and dies.
+*/
+void	*single_philosopher_routine(void *void_philo)
+{
+	t_philo	*philo;
+	t_args	*args;
+
+	philo = (t_philo *)void_philo;
+	args = philo->args;
+	pthread_mutex_lock(&(args->forks[philo->left_fork]));
+	print_philo(args, philo->id, "has taken a fork");
+	usleep(args->time_to_die * 1000);
+	print_philo(args, philo->id, "died");
+	pthread_mutex_unlock(&(args->forks[philo->left_fork]));
+	return (NULL);
+}
+
+int	main(int argc, char **argv)
 {
 	t_args	*args;
 
-	if (ac < 5 || ac > 6)
+	if (argc < 5 || argc > 6)
 		return (1);
-	if (!args_analyser(ac, av))
+	if (!input_parser(argc, argv))
 		return (1);
-	args = parse_args(ac, av);
+	args = init_args(argc, argv);
 	if (!args)
 		return (1);
-	if (args->num_philo == 1)
+	if (args->philosophers == 1)
 	{
 		if (single_philosopher_simulation(args))
 			return (1);
