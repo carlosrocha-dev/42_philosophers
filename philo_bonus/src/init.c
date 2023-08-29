@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 09:15:01 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/29 09:15:02 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/29 12:50:02 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ t_args	*init_args(int ac, char **av)
 	args->is_dead = 0;
 	args->stop_simulation = 0;
 	args->meals_finished = 0;
+	args->available_forks = sem_open("/available_forks", \O_CREAT, 0644, args->philosophers);
+	if (args->available_forks == SEM_FAILED)
+		exit(1);
 	init_philosophers(args);
 	if (init_mutex(args))
 		return (NULL);
@@ -104,6 +107,39 @@ int	single_philosopher_simulation(t_args *args)
 /*
 Create threads for each philosopher
 */
+int start_simulation(t_args *args)
+{
+	pid_t	pid;
+	int		philosophers_remaining;
+	int		i;
+
+	i = 0;
+	philosophers_remaining = args->philosophers;
+	while (i < args->philosophers)
+	{
+		pid = fork();
+		if (pid == 0) {
+			philosophers_routine(&(args->philo[i]));
+			exit(0);
+		}
+		else if (pid < 0)
+			exit(1);
+		i++;
+	}
+	while (philosophers_remaining > 0)
+	{
+		int status;
+		pid_t terminated_pid = waitpid(-1, &status, 0);
+		if (terminated_pid > 0) {
+			philosophers_remaining--;
+		}
+	}
+	observe_and_terminate(args);
+	terminate(args);
+	return 0;
+}
+
+/*
 int	start_simulation(t_args *args)
 {
 	int	i;
@@ -122,3 +158,6 @@ int	start_simulation(t_args *args)
 	terminate(args);
 	return (0);
 }
+
+
+*/
