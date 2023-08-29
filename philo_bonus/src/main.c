@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 09:15:08 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/29 12:42:14 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/29 13:01:55 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,17 @@ Execute a philosopher's actions: taking forks and eating.
 */
 void	philosophers_actions(t_philo *philo, t_args *args)
 {
-	sem_wait(args->available_forks);
+	sem_wait(args->fork_sem);
 	print_philo(args, philo->id, "has taken a fork");
-	sem_wait(args->available_forks);
+	sem_wait(args->fork_sem);
 	print_philo(args, philo->id, "has taken a fork");
 	pthread_mutex_lock(&(args->last_meal_mutex));
 	philo->last_meal = timestamp(0);
 	pthread_mutex_unlock(&(args->last_meal_mutex));
 	print_philo(args, philo->id, "is eating");
 	usleep(args->time_to_eat * 1000);
-	sem_post(args->available_forks);
-	sem_post(args->available_forks);
+	sem_post(args->fork_sem);
+	sem_post(args->fork_sem);
 }
 
 /*

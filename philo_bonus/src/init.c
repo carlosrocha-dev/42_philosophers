@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 09:15:01 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/29 12:50:02 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/29 13:01:55 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ t_args	*init_args(int ac, char **av)
 	args->is_dead = 0;
 	args->stop_simulation = 0;
 	args->meals_finished = 0;
-	args->available_forks = sem_open("/available_forks", \O_CREAT, 0644, args->philosophers);
-	if (args->available_forks == SEM_FAILED)
+	args->fork_sem = sem_open("/fork_sem", O_CREAT, 0644, args->philosophers);
+	if (args->fork_sem == SEM_FAILED)
 		exit(1);
 	init_philosophers(args);
 	if (init_mutex(args))

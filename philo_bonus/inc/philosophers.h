@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 09:14:53 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/29 12:37:53 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/29 13:01:55 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_args {
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	*forks;
 	t_philo			*philo;
-	sem_t			*available_forks;
+	sem_t			*fork_sem;
 }	t_args;
 
 int			input_parser(int ac, char **av);
