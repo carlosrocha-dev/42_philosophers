@@ -6,7 +6,7 @@
 /*   By: caalbert <caalbert@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 09:14:53 by caalbert          #+#    #+#             */
-/*   Updated: 2023/08/29 13:01:55 by caalbert         ###   ########.fr       */
+/*   Updated: 2023/08/29 13:06:55 by caalbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <semaphore.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+#include <fcntl.h>
 
 typedef struct s_args	t_args;
 
